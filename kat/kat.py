@@ -7,9 +7,33 @@ The unofficial API for Kickass Torrents. ♛
 
 from __future__ import unicode_literals
 
+import requests
+
+class KickAss(object):
+    """
+    Base class for the API.
+    """
+    def __init__(self, url='http://kickass.to/'):
+        super(KickAss, self).__init__()
+        self.url = url
+
+    def __repr__(self):
+        return '<Base class - KickAss>'
+
+    def ping(self):
+        try:
+            response = requests.get(self.url)
+        except Exception, exception:
+            return 'Could not connect!'
+        if response.ok:
+            return 'pong!'
+    
+
 
 class Torrent(object):
-    """A torrent on Kickass Torrents"""
+    """
+    A torrent on Kickass Torrents
+    """
     def __init__(self, title, url, category, magnet_link,
                  torrent_link, created, size, user, seeders, leechers,
                  upvotes,downvotes):
